@@ -1,23 +1,26 @@
-import streamlit as st
-import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 import os
+import streamlit as st
+import joblib
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+modelo_path = os.path.join(BASE_DIR, 'models', 'Multinomial_bayes_for_review_clasification')
+vectorizer_path = os.path.join(BASE_DIR, 'models', 'tfidf_vectorizer.pkl')
 
-modelo_path = '/workspaces/Naive-Bayes-Project-main/models/Multinomial_bayes_for_review_clasification'
-vectorizer_path = '/workspaces/Naive-Bayes-Project-main/models/tfidf_vectorizer.pkl'
 
 if os.path.exists(modelo_path):
     modelo = joblib.load(modelo_path)
-    st.success("Modelo cargado correctamente.")
+    st.write("Modelo cargado correctamente")
 else:
-    st.error("No se pudo cargar el modelo. Verifica la ruta.")
+    st.error(f"El archivo del modelo no existe en {modelo_path}")
 
 if os.path.exists(vectorizer_path):
     vectorizer = joblib.load(vectorizer_path)
-    st.success("Vectorizador cargado correctamente.")
+    st.write("Vectorizador cargado correctamente")
 else:
-    st.error("No se pudo cargar el vectorizador. Verifica la ruta.")
+    st.error(f"El archivo del vectorizador no existe en {vectorizer_path}")
+
 
 st.title("Clasificación de Comentarios: Positivo o Negativo")
 
